@@ -1,13 +1,13 @@
 import React from "react";
 import "./App.css";
 import UserList from "./components/UserList";
+import { Container } from "@mui/material";
 
 const App = () => {
   return (
-    <div>
-      <h1>User List</h1>
+    <Container maxWidth="lg">
       <UserList />
-    </div>
+    </Container>
   );
 };
 
