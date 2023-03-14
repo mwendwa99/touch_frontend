@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUsers, updateUser } from "../actions/users";
+import { fetchUsers, updateUserAsync } from "../actions/users";
 
 const initialState = {
   data: [],
@@ -13,48 +13,45 @@ export const userSlice = createSlice({
   reducers: {
     setUsers: (state, action) => {
       state.data = action.payload;
-      state.isLoading = false;
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
     },
     setError: (state, action) => {
       state.error = action.payload;
-      state.isLoading = false;
     },
-  },
-  // defines how state should be updated in the various lifecycle events of fetchUsers and updateUser
-  extraReducers: (builder) => {
-    builder
-      .addCase(fetchUsers.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(fetchUsers.fulfilled, (state, action) => {
-        state.data = action.payload;
-        state.isLoading = false;
-        state.error = null;
-      })
-      .addCase(fetchUsers.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message;
-      })
-      .addCase(updateUser.pending, (state) => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(updateUser.fulfilled, (state, action) => {
-        state.data = state.data.map((user) =>
-          user.id === action.payload.id ? action.payload : user
-        );
-        state.isLoading = false;
-        state.error = null;
-      })
-      .addCase(updateUser.rejected, (state, action) => {
-        state.isLoading = false;
-        state.error = action.error.message;
-      });
+    updateUser: (state, action) => {
+      const userIndex = state.data.findIndex(
+        (user) => user.id === action.payload.id
+      );
+      if (userIndex !== -1) {
+        state.data[userIndex] = action.payload;
+      }
+    },
   },
 });
 
-export const { setUsers, setLoading, setError } = userSlice.actions;
+export const { setUsers, setLoading, setError, updateUser } = userSlice.actions;
+
+export const fetchUsersAsync = () => async (dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const users = await fetchUsers();
+    dispatch(setUsers(users));
+    dispatch(setLoading(false));
+  } catch (error) {
+    dispatch(setError(error.message));
+    dispatch(setLoading(false));
+  }
+};
+
+export const updateUserAsyncThunk = (id, data) => async (dispatch) => {
+  try {
+    const user = await updateUserAsync(id, data);
+    dispatch(updateUser(user));
+  } catch (error) {
+    dispatch(setError(error.message));
+  }
+};
+
+export default userSlice.reducer;

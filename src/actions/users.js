@@ -1,12 +1,23 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import api from "../api";
+import { setLoading, setUsers, setError } from "../reducers/userSlice";
+import { getUsers, updateUser } from "../api/users";
 
-export const fetchUsers = createAsyncThunk("users/fetchUsers", async () => {
-  const response = await api.get("/users");
-  return response.data;
-});
+export const fetchUsers = () => async (dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const users = await getUsers();
+    dispatch(setUsers(users));
+  } catch (error) {
+    dispatch(setError(error));
+  } finally {
+    dispatch(setLoading(false));
+  }
+};
 
-export const updateUser = createAsyncThunk("users/updateUser", async (data) => {
-  const response = await api.get(`/users/${data.id}`, data);
-  return response.data;
-});
+export const updateUserAsync = (id, data) => async (dispatch) => {
+  try {
+    const updatedUser = await updateUser(id, data);
+    dispatch(updateUser({ id, changes: updatedUser }));
+  } catch (error) {
+    console.log(error);
+  }
+};
