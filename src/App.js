@@ -1,13 +1,17 @@
 import React from "react";
 import "./App.css";
 import UserList from "./components/UserList";
-import { Container } from "@mui/material";
+import UpdateUserForm from "./components/UpdateUserForm";
+import { Container, Box } from "@mui/material";
 
 const App = () => {
   return (
-    <Container maxWidth="lg">
-      <UserList />
-    </Container>
+    <Box sx={{ flexGrow: 1, p: 2, m: 2 }}>
+      <Container maxWidth="lg">
+        <UpdateUserForm />
+        <UserList />
+      </Container>
+    </Box>
   );
 };
 

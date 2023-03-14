@@ -1,8 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUsers, updateUserAsync } from "../actions/users";
+import { fetchUsers, updateUserAsync, fetchUser } from "../actions/users";
 
 const initialState = {
   data: [],
+  user: {},
   isLoading: false,
   error: null,
 };
@@ -13,6 +14,9 @@ export const userSlice = createSlice({
   reducers: {
     setUsers: (state, action) => {
       state.data = action.payload;
+    },
+    setUser: (state, action) => {
+      state.user = action.payload;
     },
     setLoading: (state, action) => {
       state.isLoading = action.payload;
@@ -27,17 +31,31 @@ export const userSlice = createSlice({
       if (userIndex !== -1) {
         state.data[userIndex] = action.payload;
       }
+      state.user = action.payload;
     },
   },
 });
 
-export const { setUsers, setLoading, setError, updateUser } = userSlice.actions;
+export const { setUsers, setUser, setLoading, setError, updateUser } =
+  userSlice.actions;
 
 export const fetchUsersAsync = () => async (dispatch) => {
   try {
     dispatch(setLoading(true));
     const users = await fetchUsers();
     dispatch(setUsers(users));
+    dispatch(setLoading(false));
+  } catch (error) {
+    dispatch(setError(error.message));
+    dispatch(setLoading(false));
+  }
+};
+
+export const fetchUserAsync = (id) => async (dispatch) => {
+  try {
+    dispatch(setLoading(true));
+    const user = await fetchUser(id);
+    dispatch(setUser(user));
     dispatch(setLoading(false));
   } catch (error) {
     dispatch(setError(error.message));

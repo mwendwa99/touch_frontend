@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { fetchUsers } from "../actions/users";
 import { Box, CircularProgress, Container, Typography } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
 import { styled } from "@mui/material/styles";
 import {
   Table,
@@ -49,6 +48,7 @@ const UserList = () => {
       </UserListContainer>
     );
   }
+  // console.log("users", users);
 
   return (
     <Box>
@@ -64,9 +64,9 @@ const UserList = () => {
           </TableRow>
         </TableHead>
         <TableBody>
-          {users.map((user, index) => (
-            <TableRow key={index}>
-              <TableCell>{++index}</TableCell>
+          {users.map((user) => (
+            <TableRow key={user._id}>
+              <TableCell>{user._id}</TableCell>
               <TableCell>{user.name}</TableCell>
               <TableCell>{user.email}</TableCell>
               <TableCell>{user.occupation}</TableCell>

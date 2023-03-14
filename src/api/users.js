@@ -14,3 +14,10 @@ export const updateUser = async (id, data) => {
   );
   return response.data;
 };
+
+export const getUser = async (id) => {
+  const response = await axios.get(
+    `https://frontend-interview.touchinspiration.net/api/users/${id}`
+  );
+  return response.data;
+};
