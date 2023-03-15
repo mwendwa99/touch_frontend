@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { TextField, Button, CircularProgress, Typography } from "@mui/material";
+import {
+  TextField,
+  Button,
+  CircularProgress,
+  Typography,
+  Grid,
+} from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../actions/users";
-import UserDetail from "./UserDetail";
 
 const useStyles = makeStyles({
   form: {
@@ -22,13 +27,14 @@ const GetUserForm = () => {
   const dispatch = useDispatch();
   const [userId, setUserId] = useState("");
   const isLoading = useSelector((state) => state.users.isLoading);
-  // const user = useSelector((state) => state.users.user);
-  const user = useSelector((state) => state.users.data);
+  const user = useSelector((state) => state.users.user);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchUser(userId));
   };
+
+  console.log(user);
 
   return (
     <div>
@@ -52,10 +58,43 @@ const GetUserForm = () => {
           disabled={isLoading}
           sx={{ my: 1 }}
         >
-          {isLoading ? <CircularProgress size={24} /> : "Get User"}
+          Get User
         </Button>
       </form>
-      {user && <UserDetail user={user} />}
+      <Grid
+        container
+        spacing={2}
+        sx={{
+          border: "solid 1px grey",
+          my: "1rem",
+          borderRadius: "5px",
+          p: "1rem",
+        }}
+      >
+        <Grid item xs={12}>
+          <Typography variant="h4" component="h1">
+            {user.name || ""}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="subtitle1">
+            <span style={{ fontWeight: "bold" }}>Email:&nbsp;</span>
+            {user.email || ""}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="subtitle1">
+            <span style={{ fontWeight: "bold" }}>Occupation:&nbsp;</span>
+            {user.occupation || ""}
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <Typography variant="body1">
+            <span style={{ fontWeight: "bold" }}>Bio:&nbsp;</span>
+            {user.bio || ""}
+          </Typography>
+        </Grid>
+      </Grid>
     </div>
   );
 };

@@ -12,7 +12,6 @@ import {
 const UpdateUserForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.users.isLoading);
-  const error = useSelector((state) => state.users.error);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -25,7 +24,6 @@ const UpdateUserForm = () => {
     dispatch(updateUserAsync(id, data));
   };
 
-  // console.log("user", user);
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -90,7 +88,6 @@ const UpdateUserForm = () => {
       >
         Update
       </Button>
-      {error && <p>{error}</p>}
     </form>
   );
 };

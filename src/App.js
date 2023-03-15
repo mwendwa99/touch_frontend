@@ -3,7 +3,6 @@ import "./App.css";
 import UserList from "./components/UserList";
 import UpdateUserForm from "./components/UpdateUserForm";
 import GetUserForm from "./components/GetUserForm";
-import UserDetail from "./components/UserDetail";
 import { Container, Box } from "@mui/material";
 
 const App = () => {
@@ -12,7 +11,6 @@ const App = () => {
       <Container maxWidth="lg">
         <UpdateUserForm />
         <GetUserForm />
-        {/* <UserDetail /> */}
         <UserList />
       </Container>
     </Box>
