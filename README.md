@@ -4,7 +4,7 @@ TouchFrontend is a simple web application built with React, Redux, and Material-
 
 ## Installation
 
-Clone the repository: git clone https://github.com/<username>/TouchFrontend.git
+Clone the repository: git clone https://github.com/mwendwa99/touch_frontend.git
 Change into the project directory: cd TouchFrontend
 Install dependencies using yarn: yarn install
 
