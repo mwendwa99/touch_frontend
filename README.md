@@ -1,70 +1,41 @@
-# Getting Started with Create React App
+## TouchFrontend
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+TouchFrontend is a simple web application built with React, Redux, and Material-UI.
 
-## Available Scripts
+## Installation
 
-In the project directory, you can run:
+Clone the repository: git clone https://github.com/<username>/TouchFrontend.git
+Change into the project directory: cd TouchFrontend
+Install dependencies using yarn: yarn install
 
-### `yarn start`
+## Usage
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Start the development server: yarn start
+Open the web application in a web browser at http://localhost:3000
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+## Features
 
-### `yarn test`
+TouchFrontend includes the following features:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. A User Update section allowing to update information about a user based on their id.
+2. User Detail section displaying information about a queried user.
+3. User List displaying a list of users.
 
-### `yarn build`
+## Technologies Used
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+TouchFrontend uses the following technologies:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+1. React: A JavaScript library for building user interfaces.
+2. Redux: A predictable state container for JavaScript apps.
+3. Material-UI: A popular React UI framework.
+4. Axios: A Promise-based HTTP client for the browser and Node.js.
+5. Yarn: A fast, reliable, and secure dependency manager.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## Folder Structure
 
-### `yarn eject`
+The source code is organized into the following folders:
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+- src/actions: Contains Redux action creators.
+- src/api: Contains functions for making API requests.
+- src/components: Contains React components used throughout the application.
+- src/reducers: Contains Redux reducers.
