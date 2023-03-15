@@ -1,14 +1,8 @@
 import { useState } from "react";
-import {
-  TextField,
-  Button,
-  CircularProgress,
-  Typography,
-  Grid,
-} from "@mui/material";
+import { TextField, Button, Typography, Grid } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchUser } from "../actions/users";
+import { fetchUser } from "../actions/userActions";
 
 const useStyles = makeStyles({
   form: {
@@ -33,8 +27,6 @@ const GetUserForm = () => {
     e.preventDefault();
     dispatch(fetchUser(userId));
   };
-
-  console.log(user);
 
   return (
     <div>

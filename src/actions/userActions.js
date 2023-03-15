@@ -1,5 +1,5 @@
 import { setLoading, setUsers, setError, setUser } from "../reducers/userSlice";
-import { getUsers, updateUser, getUser } from "../api/users";
+import { getUsers, updateUser, getUser } from "../api/usersApi";
 
 export const fetchUsers = () => async (dispatch) => {
   try {
@@ -27,6 +27,7 @@ export const fetchUser = (id) => async (dispatch) => {
 
 export const updateUserAsync = (id, data) => async (dispatch) => {
   try {
+    dispatch(setLoading(true));
     const updatedUser = await updateUser(id, data);
     dispatch(updateUser({ id, changes: updatedUser }));
   } catch (error) {

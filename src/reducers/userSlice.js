@@ -17,10 +17,10 @@ export const fetchUser = createAsyncThunk("users/fetchUser", async (userId) => {
 
 export const updateUserAsync = createAsyncThunk(
   "users/updateUserAsync",
-  async (updatedUser) => {
+  async (id, data) => {
     const response = await axios.patch(
-      `https://frontend-interview.touchinspiration.net/api/user/${updatedUser.id}`,
-      updatedUser
+      `https://frontend-interview.touchinspiration.net/api/user/${id}`,
+      data
     );
     return response.data;
   }
@@ -44,7 +44,7 @@ export const userSlice = createSlice({
     },
     updateUser: (state, action) => {
       const userIndex = state.data.findIndex(
-        (user) => user.id === action.payload.id
+        (user) => user._id === action.payload._id
       );
       if (userIndex !== -1) {
         state.data[userIndex] = action.payload;

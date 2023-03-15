@@ -1,35 +1,40 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { updateUserAsync } from "../actions/users";
-import {
-  CircularProgress,
-  Button,
-  TextField,
-  Grid,
-  Typography,
-} from "@mui/material";
+import { updateUserAsync } from "../actions/userActions";
+import { Button, TextField, Grid, Typography } from "@mui/material";
 
 const UpdateUserForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.users.isLoading);
+  const user = useSelector((state) => state.users.user);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [occupation, setOccupation] = useState("");
   const [bio, setBio] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const data = { name, email, occupation, bio };
-    dispatch(updateUserAsync(id, data));
+    // trim the id
+    const trimId = id.trim();
+    dispatch(updateUserAsync(trimId, data));
   };
-
-  if (isLoading) {
-    return <CircularProgress />;
-  }
 
   return (
     <form onSubmit={handleSubmit}>
+      {user && (
+        <div>
+          <Typography
+            gutterBottom
+            variant="h6"
+            align="center"
+            sx={{ color: "green" }}
+          >
+            {/* {updateduser.name} has been updated */}
+          </Typography>
+        </div>
+      )}
       <Typography gutterBottom variant="h4" sx={{ fontWeight: "bold" }}>
         Update User
       </Typography>
@@ -85,6 +90,7 @@ const UpdateUserForm = () => {
         variant="contained"
         color="primary"
         type="submit"
+        disabled={isLoading}
       >
         Update
       </Button>

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { fetchUsers } from "../actions/users";
+import { fetchUsers } from "../actions/userActions";
 import { Box, CircularProgress, Container, Typography } from "@mui/material";
 import { styled } from "@mui/material/styles";
 import {
@@ -48,7 +48,6 @@ const UserList = () => {
       </UserListContainer>
     );
   }
-  // console.log("users", users);
 
   return (
     <Box>
