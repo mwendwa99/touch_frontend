@@ -6,7 +6,6 @@ import { Button, TextField, Grid, Typography } from "@mui/material";
 const UpdateUserForm = () => {
   const dispatch = useDispatch();
   const isLoading = useSelector((state) => state.users.isLoading);
-  const user = useSelector((state) => state.users.user);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -23,18 +22,6 @@ const UpdateUserForm = () => {
 
   return (
     <form onSubmit={handleSubmit}>
-      {user && (
-        <div>
-          <Typography
-            gutterBottom
-            variant="h6"
-            align="center"
-            sx={{ color: "green" }}
-          >
-            {/* {updateduser.name} has been updated */}
-          </Typography>
-        </div>
-      )}
       <Typography gutterBottom variant="h4" sx={{ fontWeight: "bold" }}>
         Update User
       </Typography>
@@ -94,6 +81,18 @@ const UpdateUserForm = () => {
       >
         Update
       </Button>
+      <Typography
+        gutterBottom
+        variant="body1"
+        sx={{
+          color: "green",
+          fontWeight: "bold",
+          fontStyle: "italic",
+        }}
+      >
+        refresh the page to see <u>User List</u> with the new updated data OR
+        run <u>Get User</u> to see the updated data
+      </Typography>
     </form>
   );
 };
