@@ -1,5 +1,5 @@
-import { createSlice } from "@reduxjs/toolkit";
-import { fetchUsers, updateUserAsync, fetchUser } from "../actions/users";
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import axios from "axios";
 
 const initialState = {
   data: [],
@@ -7,6 +7,24 @@ const initialState = {
   isLoading: false,
   error: null,
 };
+
+export const fetchUser = createAsyncThunk("users/fetchUser", async (userId) => {
+  const response = await axios.get(
+    `https://frontend-interview.touchinspiration.net/api/users/${userId}`
+  );
+  return response.data;
+});
+
+export const updateUserAsync = createAsyncThunk(
+  "users/updateUserAsync",
+  async (updatedUser) => {
+    const response = await axios.patch(
+      `https://frontend-interview.touchinspiration.net/api/users/${updatedUser.id}`,
+      updatedUser
+    );
+    return response.data;
+  }
+);
 
 export const userSlice = createSlice({
   name: "users",
@@ -34,42 +52,40 @@ export const userSlice = createSlice({
       state.user = action.payload;
     },
   },
+  extraReducers: (builder) => {
+    builder
+      .addCase(fetchUser.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchUser.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.user = action.payload;
+      })
+      .addCase(fetchUser.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      })
+      .addCase(updateUserAsync.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(updateUserAsync.fulfilled, (state, action) => {
+        state.isLoading = false;
+        const userIndex = state.data.findIndex(
+          (user) => user.id === action.payload.id
+        );
+        if (userIndex !== -1) {
+          state.data[userIndex] = action.payload;
+        }
+        state.user = action.payload;
+      })
+      .addCase(updateUserAsync.rejected, (state, action) => {
+        state.isLoading = false;
+        state.error = action.error.message;
+      });
+  },
 });
 
 export const { setUsers, setUser, setLoading, setError, updateUser } =
   userSlice.actions;
-
-export const fetchUsersAsync = () => async (dispatch) => {
-  try {
-    dispatch(setLoading(true));
-    const users = await fetchUsers();
-    dispatch(setUsers(users));
-    dispatch(setLoading(false));
-  } catch (error) {
-    dispatch(setError(error.message));
-    dispatch(setLoading(false));
-  }
-};
-
-export const fetchUserAsync = (id) => async (dispatch) => {
-  try {
-    dispatch(setLoading(true));
-    const user = await fetchUser(id);
-    dispatch(setUser(user));
-    dispatch(setLoading(false));
-  } catch (error) {
-    dispatch(setError(error.message));
-    dispatch(setLoading(false));
-  }
-};
-
-export const updateUserAsyncThunk = (id, data) => async (dispatch) => {
-  try {
-    const user = await updateUserAsync(id, data);
-    dispatch(updateUser(user));
-  } catch (error) {
-    dispatch(setError(error.message));
-  }
-};
 
 export default userSlice.reducer;
