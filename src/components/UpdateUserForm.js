@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { updateUserAsync } from "../actions/users";
 import {
@@ -11,21 +10,13 @@ import {
 } from "@mui/material";
 
 const UpdateUserForm = () => {
-  // const { id } = useParams();
-  const id = "640ed48101d6949392220105";
   const dispatch = useDispatch();
   const { user, isLoading } = useSelector((state) => state.users);
+  const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [occupation, setOccupation] = useState("");
   const [bio, setBio] = useState("");
-
-  // useEffect(() => {
-  //   setName(user.name);
-  //   setEmail(user.email);
-  //   setOccupation(user.occupation);
-  //   setBio(user.bio);
-  // }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -46,6 +37,15 @@ const UpdateUserForm = () => {
         Update User
       </Typography>
       <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <TextField
+            name="id"
+            fullWidth
+            label="ID"
+            value={id}
+            onChange={(e) => setId(e.target.value)}
+          />
+        </Grid>
         <Grid item xs={12} md={6}>
           <TextField
             name="name"

@@ -2,7 +2,8 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Typography, CircularProgress, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { fetchUser } from "../reducers/userSlice";
+// import { fetchUser } from "../reducers/userSlice";
+import { fetchUser } from "../actions/users";
 
 const CenteredGrid = styled(Grid)({
   display: "flex",
@@ -14,7 +15,7 @@ function UserDetail(props) {
   const { userId } = props;
 
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.users.current);
+  const user = useSelector((state) => state.users.data);
   const loading = useSelector((state) => state.users.loading);
   const error = useSelector((state) => state.users.error);
 

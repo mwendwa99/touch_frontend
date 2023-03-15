@@ -28,6 +28,7 @@ const GetUserForm = () => {
     e.preventDefault();
     dispatch(fetchUser(userId));
   };
+  console.log("user", user);
 
   return (
     <div>
