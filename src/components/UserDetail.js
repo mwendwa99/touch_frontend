@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { Typography, CircularProgress, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
-// import { fetchUser } from "../reducers/userSlice";
 import { fetchUser } from "../actions/users";
 
 const CenteredGrid = styled(Grid)({
