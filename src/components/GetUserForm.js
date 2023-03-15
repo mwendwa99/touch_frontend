@@ -31,6 +31,14 @@ const GetUserForm = () => {
   return (
     <div>
       <form className={classes.form} onSubmit={handleSubmit}>
+        <Typography
+          gutterBottom
+          variant="subtitle"
+          align="center"
+          sx={{ fontWeight: "bold", color: "red", fontStyle: "italic" }}
+        >
+          RUN 'GET USER' BELOW TO SEE THE UPDATED USER NEW DATA
+        </Typography>
         <Typography gutterBottom variant="h4" sx={{ fontWeight: "bold" }}>
           Get User
         </Typography>
