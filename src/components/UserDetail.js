@@ -1,8 +1,6 @@
-import { useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import { Typography, CircularProgress, Grid } from "@mui/material";
 import { styled } from "@mui/material/styles";
-import { fetchUser } from "../actions/users";
 
 const CenteredGrid = styled(Grid)({
   display: "flex",
@@ -11,16 +9,9 @@ const CenteredGrid = styled(Grid)({
 });
 
 function UserDetail(props) {
-  const { userId } = props;
-
-  const dispatch = useDispatch();
-  const user = useSelector((state) => state.users.data);
+  const { user } = props;
   const loading = useSelector((state) => state.users.loading);
   const error = useSelector((state) => state.users.error);
-
-  useEffect(() => {
-    dispatch(fetchUser(userId));
-  }, [dispatch, userId]);
 
   if (loading) {
     return (
@@ -39,24 +30,36 @@ function UserDetail(props) {
   }
 
   return (
-    <Grid container spacing={2}>
+    <Grid
+      container
+      spacing={2}
+      sx={{
+        border: "solid 1px grey",
+        my: "1rem",
+        borderRadius: "5px",
+        p: "1rem",
+      }}
+    >
       <Grid item xs={12}>
         <Typography variant="h4" component="h1">
           {user.name}
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="subtitle1" gutterBottom>
+        <Typography variant="subtitle1">
+          <span style={{ fontWeight: "bold" }}>Email:&nbsp;</span>
           {user.email}
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="subtitle1" gutterBottom>
+        <Typography variant="subtitle1">
+          <span style={{ fontWeight: "bold" }}>Occupation:&nbsp;</span>
           {user.occupation}
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <Typography variant="body1" gutterBottom>
+        <Typography variant="body1">
+          <span style={{ fontWeight: "bold" }}>Bio:&nbsp;</span>
           {user.bio}
         </Typography>
       </Grid>

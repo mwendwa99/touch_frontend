@@ -11,7 +11,8 @@ import {
 
 const UpdateUserForm = () => {
   const dispatch = useDispatch();
-  const { user, isLoading } = useSelector((state) => state.users);
+  const isLoading = useSelector((state) => state.users.isLoading);
+  const error = useSelector((state) => state.users.error);
   const [id, setId] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -21,12 +22,10 @@ const UpdateUserForm = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     const data = { name, email, occupation, bio };
-    // stringify the data object
-    const dataString = JSON.stringify(data);
-    console.log(dataString);
-    dispatch(updateUserAsync(id, dataString));
+    dispatch(updateUserAsync(id, data));
   };
 
+  // console.log("user", user);
   if (isLoading) {
     return <CircularProgress />;
   }
@@ -91,6 +90,7 @@ const UpdateUserForm = () => {
       >
         Update
       </Button>
+      {error && <p>{error}</p>}
     </form>
   );
 };

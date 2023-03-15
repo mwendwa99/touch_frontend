@@ -22,13 +22,13 @@ const GetUserForm = () => {
   const dispatch = useDispatch();
   const [userId, setUserId] = useState("");
   const isLoading = useSelector((state) => state.users.isLoading);
-  const user = useSelector((state) => state.users.user);
+  // const user = useSelector((state) => state.users.user);
+  const user = useSelector((state) => state.users.data);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     dispatch(fetchUser(userId));
   };
-  console.log("user", user);
 
   return (
     <div>

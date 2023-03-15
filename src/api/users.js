@@ -1,5 +1,4 @@
 import axios from "axios";
-import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const getUsers = async () => {
   const response = await axios.get(
@@ -8,35 +7,18 @@ export const getUsers = async () => {
   return response.data;
 };
 
-export const updateUser = async (id, data) => {
-  const response = await axios.patch(
-    `https://frontend-interview.touchinspiration.net/api/users/${id}`,
-    data
+// getUser
+export const getUser = async (userId) => {
+  const response = await axios.get(
+    `https://frontend-interview.touchinspiration.net/api/user/${userId}`
   );
   return response.data;
 };
 
-export const getUser = createAsyncThunk("users/fetchUser", async (userId) => {
-  try {
-    const response = await axios.get(
-      `https://frontend-interview.touchinspiration.net/api/users/${userId}`
-    );
-    return response.data;
-  } catch (error) {
-    return error;
-  }
-});
-
-// export const getUser = createAsyncThunk(
-//   "users/fetchUser",
-//   async (userId, thunkAPI) => {
-//     try {
-//       const response = await axios.get(
-//         `https://frontend-interview.touchinspiration.net/api/users/${userId}`
-//       );
-//       return response.data;
-//     } catch (error) {
-//       return thunkAPI.rejectWithValue(error.response.data);
-//     }
-//   }
-// );
+export const updateUser = async (id, data) => {
+  const response = await axios.patch(
+    `https://frontend-interview.touchinspiration.net/api/user/${id}`,
+    data
+  );
+  return response.data;
+};
